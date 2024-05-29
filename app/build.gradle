@@ -1,0 +1,220 @@
+plugins {
+    // core
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+
+    // dependencies injection, inject classes generator
+    id 'com.google.dagger.hilt.android'
+
+    // (deprecated), but data-binding still use as annotation processor
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.mdts.eieapp'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.mdts.eieapp"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+        signingConfigs {
+            release {
+                storePassword '123456'
+                keyPassword '123456'
+                keyAlias 'release_keystore'
+                //storeFile file('../release_keystore.jks')
+            }
+            staging{
+                storePassword 'egs!23456'
+                keyPassword 'egs!23456'
+                keyAlias 'stag_keystore'
+                //storeFile file('../debug_keystore.jks')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            applicationIdSuffix = ".debug"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+        buildConfig true
+    }
+
+    /**
+     *
+     */
+    flavorDimensions.add("environment")
+    productFlavors {
+        dev {
+            dimension = "environment"
+            applicationIdSuffix = ".dev"
+            signingConfig signingConfigs.staging
+        }
+
+        stag {
+            dimension = "environment"
+            applicationIdSuffix = ".staging"
+            signingConfig signingConfigs.staging
+        }
+
+        prod {
+            dimension = "environment"
+        }
+
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+}
+
+dependencies {
+
+    def multidex_version = "2.0.1"
+    def hilt_version = "2.48"
+    def navigator_version = "2.7.7"
+    def retrofit_version = "2.9.0"
+    def glide_version = "4.14.2"
+    def viewmodel_version = "2.7.0"
+    // core
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.11.0'
+
+    // screens navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigator_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigator_version"
+
+
+    // dependencies injection
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+
+    // reactive programming
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+
+    // restful api client
+    implementation 'com.squareup.okhttp3:okhttp'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // logging
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
+
+    // Unit test
+    testImplementation 'io.mockk:mockk:1.13.8'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.8'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+}
+kapt {
+    correctErrorTypes true
+}
+
+hilt {
+    enableAggregatingTask = true
+}
+
+/*
+class SDPFactory extends DefaultTask {
+
+    @Input
+    String unit = "dp"
+    @Input
+    double positiveMax = 600
+    @Input
+    double negativeMax = 60
+
+    @TaskAction
+    def create() {
+        String resFolder =  project.getProjectDir().getPath() + "/src/main/res/"
+        for(double dimen = 300; dimen <= 1080 ; dimen = dimen + 30){
+            String folder = resFolder + "values-sw" + (int)dimen + "dp"
+            String fileName = folder + "/positive_sdps.xml"
+            new File(folder).mkdir()
+            new File(fileName).createNewFile()
+            PrintWriter printWriter = new PrintWriter(fileName)
+            printWriter.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+            printWriter.println("<resources>")
+            for(int i=1; i<=positiveMax; i++){
+                double ratio = i/300d
+                double sdp = ratio*dimen
+                printWriter.printf("\t<dimen name=\"_%dsdp\">%.2f" + unit + "</dimen>\r\n",i,sdp)
+            }
+            printWriter.println("</resources>")
+            printWriter.close()
+        }
+        for(double dimen = 300; dimen <= 1080; dimen = dimen + 30){
+            String folder = resFolder + "values-sw" + (int)dimen + "dp"
+            String fileName = folder + "/negative_sdps.xml"
+            new File(folder).mkdir()
+            new File(fileName).createNewFile()
+            PrintWriter printWriter = new PrintWriter(fileName)
+            printWriter.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+            printWriter.println("<resources>")
+            for(int i=1;i<=negativeMax;i++){
+                double ratio = i/300d
+                double sdp = ratio*dimen
+                printWriter.printf("\t<dimen name=\"_minus%dsdp\">%.2f" + unit + "</dimen>\r\n",i,-sdp)
+            }
+            printWriter.println("</resources>")
+            printWriter.close()
+        }
+    }
+}
+
+task createSDP(type: SDPFactory) {
+}
+
+//uncomment next line to edit values
+//preBuild.dependsOn createSDP
+
+createSDP{
+    unit = "dp"//change to "sp" if needed
+    positiveMax = 600//change to 600 or any other value if needed
+    negativeMax = 60//change to 600 or any other value if needed
+}
+clean.dependsOn createSDP*/
