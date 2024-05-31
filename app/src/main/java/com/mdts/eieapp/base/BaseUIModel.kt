@@ -1,4 +1,4 @@
-package com.example.movedb.base
+package com.mdts.eieapp.base
 
 import java.io.Serializable
 

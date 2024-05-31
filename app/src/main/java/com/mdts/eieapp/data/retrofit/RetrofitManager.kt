@@ -17,7 +17,7 @@ class RetrofitManager (
     private val gson: Gson,
     private val connectivityDataSource: ConnectivityDataSource,
     private val baseUrl: String,
-    private val jwtToken: String
+    private val openAiAPIKey: String
 ) {
     class NetworkLogger : HttpLoggingInterceptor.Logger {
         override fun log(message: String?) {
@@ -34,8 +34,8 @@ class RetrofitManager (
                 }
 
                 val newRequestBuilder = chain.request().newBuilder()
-                newRequestBuilder.addHeader("accept", "application/json")
-                newRequestBuilder.addHeader("Authorization", "Bearer $jwtToken")
+                newRequestBuilder.addHeader("Content-Type", "application/json")
+                newRequestBuilder.addHeader("Authorization", "Bearer $openAiAPIKey")
                 val newRequest = newRequestBuilder.build()
                 return@addNetworkInterceptor chain.proceed(newRequest)
             }

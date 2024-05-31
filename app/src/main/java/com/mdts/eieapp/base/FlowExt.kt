@@ -1,4 +1,4 @@
-package com.example.movedb.base
+package com.mdts.eieapp.base
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

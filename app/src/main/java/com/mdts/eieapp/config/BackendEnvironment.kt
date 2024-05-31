@@ -2,24 +2,27 @@ package com.mdts.eieapp.config
 
 enum class BackendEnvironment (
     val baseUrl: String,
-    val jwtToken: String
+    val openAiAPIKey: String
 ) {
 
     Dev(
-        baseUrl = "https://api.themoviedb.org",
-        jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWJhZDQwMDkzMzBkYjg4YTA3YjYyYjEwZTkxNzFlYSIsInN1YiI6IjY1ZTA1OGIwNTI5NGU3MDE2MzRlYTQ4ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QqlyfqCRjGD99wXHXgw0Ap2YW0rOfVRwUHX84-mvRqw"
+        baseUrl = baseUrl,
+        openAiAPIKey = OPENAI_API_KEY
     ),
 
     Staging(
-        baseUrl = "https://api.themoviedb.org",
-        jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWJhZDQwMDkzMzBkYjg4YTA3YjYyYjEwZTkxNzFlYSIsInN1YiI6IjY1ZTA1OGIwNTI5NGU3MDE2MzRlYTQ4ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QqlyfqCRjGD99wXHXgw0Ap2YW0rOfVRwUHX84-mvRqw"
+        baseUrl = baseUrl,
+        openAiAPIKey = OPENAI_API_KEY
     ),
 
     Prod(
-        baseUrl = "https://api.themoviedb.org",
-        jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWJhZDQwMDkzMzBkYjg4YTA3YjYyYjEwZTkxNzFlYSIsInN1YiI6IjY1ZTA1OGIwNTI5NGU3MDE2MzRlYTQ4ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QqlyfqCRjGD99wXHXgw0Ap2YW0rOfVRwUHX84-mvRqw"
+        baseUrl = baseUrl,
+        openAiAPIKey = OPENAI_API_KEY
     )
 
 }
-const val PATH_IMAGE_URL: String  = "https://image.tmdb.org/t/p/w500"
-const val API_VERSION = "3"
+private const val baseUrl : String = "https://api.openai.com"
+private const val OPENAI_API_KEY: String  = "sk-proj-Sks7W4353nrnpJlclhUsT3BlbkFJ1uWCAfSMQGEtI79ZBNfE"
+const val API_VERSION = "v1"
+
+
