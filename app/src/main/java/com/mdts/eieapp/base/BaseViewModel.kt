@@ -1,7 +1,6 @@
 package com.mdts.eieapp.base
 
 import androidx.lifecycle.ViewModel
-import com.example.movedb.base.BaseUIModel
 import com.mdts.eieapp.R
 import com.mdts.eieapp.domain.AppError
 import com.mdts.eieapp.domain.TaskResult

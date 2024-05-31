@@ -41,7 +41,7 @@ class AppModule {
             gson = gson,
             connectivityDataSource = connectivityDataSource,
             baseUrl = AppConfig.backendEnvironment.baseUrl,
-            jwtToken = AppConfig.backendEnvironment.jwtToken
+            openAiAPIKey = AppConfig.backendEnvironment.openAiAPIKey
         )
     }
 }
