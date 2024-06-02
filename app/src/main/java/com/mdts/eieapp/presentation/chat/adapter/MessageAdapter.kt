@@ -38,9 +38,6 @@ internal class MessageAdapter (private val messages: List<Message>) : RecyclerVi
 
     inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageTextView: MaterialTextView = itemView.findViewById(R.id.messageTextView)
-//        binding.root.setOnClickListener {
-//            onClicked?.invoke(ListMovieUIEvent.OnItemClicked(item))
-//        }
     }
 
 }
