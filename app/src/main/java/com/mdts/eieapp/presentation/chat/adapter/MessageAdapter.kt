@@ -3,11 +3,10 @@ package com.mdts.eieapp.presentation.chat.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.mdts.eieapp.R
-import com.mdts.eieapp.domain.model.ChatModel
+import com.mdts.eieapp.presentation.chat.Message
 
 internal class MessageAdapter (private val messages: List<Message>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
     var onClicked: ((ListMessageUIEvent) -> Unit)? = null

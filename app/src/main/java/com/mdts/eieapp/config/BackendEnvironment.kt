@@ -7,22 +7,22 @@ enum class BackendEnvironment (
 
     Dev(
         baseUrl = baseUrl,
-        openAiAPIKey = API_KEY
+        openAiAPIKey = OPENAI_API_KEY
     ),
 
     Staging(
         baseUrl = baseUrl,
-        openAiAPIKey = API_KEY
+        openAiAPIKey = OPENAI_API_KEY
     ),
 
     Prod(
         baseUrl = baseUrl,
-        openAiAPIKey = API_KEY
+        openAiAPIKey = OPENAI_API_KEY
     )
 
 }
 private const val baseUrl : String = "https://api.openai.com"
-private const val API_KEY: String  = ""
+private const val OPENAI_API_KEY: String  = ""
 const val API_VERSION = "v1"
 
 

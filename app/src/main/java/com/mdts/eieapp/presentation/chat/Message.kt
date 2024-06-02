@@ -1,4 +1,4 @@
-package com.mdts.eieapp.presentation.chat.adapter
+package com.mdts.eieapp.presentation.chat
 
 import java.io.Serializable
 
