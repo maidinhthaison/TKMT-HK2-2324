@@ -17,18 +17,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.mdts.eieapp.R
 import com.mdts.eieapp.base.BaseFragment
-import com.mdts.eieapp.base.collectWhenOwnerCreated
-import com.mdts.eieapp.base.collectWhenOwnerStarted
 import com.mdts.eieapp.data.model.ChatRequestDTO
 import com.mdts.eieapp.data.model.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentChatBinding
-import com.mdts.eieapp.domain.TaskResult
 import com.mdts.eieapp.presentation.chat.adapter.ListMessageUIEvent
-import com.mdts.eieapp.presentation.chat.adapter.Message
 import com.mdts.eieapp.presentation.chat.adapter.MessageAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -97,10 +92,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
 
             override fun onRmsChanged(p0: Float) {
                 // resize micButton given rms value
-                val scale = p0 / 2
-                if (scale < 1 || scale > 4) return
-                binding.micButton.scaleX = scale
-                binding.micButton.scaleY = scale
+//                val scale = p0 / 2
+//                if (scale < 1 || scale > 4) return
+//                binding.micButton.scaleX = scale
+//                binding.micButton.scaleY = scale
 
             }
 
@@ -109,8 +104,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             override fun onEndOfSpeech() {
                 binding.micButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_rounded_64_blue)
                 // restore micButton size
-                binding.micButton.scaleX = 1f
-                binding.micButton.scaleY = 1f
+//                binding.micButton.scaleX = 1f
+//                binding.micButton.scaleY = 1f
             }
 
             override fun onError(p0: Int) {}
@@ -159,8 +154,11 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                             viewModel.getDocument()
                         )
                     }*/
+                    val bundle = Bundle().apply {
+                        putSerializable(MESSAGE_KEY_BUNDLE, it.message)
+                    }
                     findNavController().navigate(
-                        R.id.vocabularyBottomSheetDialogFragment
+                        R.id.vocabularyBottomSheetDialogFragment, bundle
                     )
                 }
             }
@@ -186,7 +184,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             "model" to "gpt-3.5-turbo",
             "messages" to messagesOpenAI
         )*/
-        /*with(viewModel) {
+        with(viewModel) {
             val chatRequestDTO = ChatRequestDTO(model = "gpt-3.5-turbo",
                 messages = messages.map { item-> MessageRequestItemDTO(item.role, item.content) }
             )
@@ -208,7 +206,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                 //removeLastMessageFromChatRecyclerView()
                 Timber.d(">>>ERROR :")
             }
-        }*/
+        }
 
 
         /*val headers = Headers.Builder()
@@ -338,5 +336,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
     }
     companion object{
         private const val RECORD_AUDIO_PERMISSION_CODE = 1
+        const val MESSAGE_KEY_BUNDLE = "message_key_bundle"
     }
 }

@@ -4,5 +4,13 @@
     <string name="title_dictionary">Dictionary</string>
     <string name="title_about">About</string>
 
-    <string name="message_api_error" tools:ignore="ExtraTranslation">API error</string>
+    <string name="message_api_error">API error</string>
+    <string name="list_member_label">Thành viên:\n\u2022 Mai Đình Thái Sơn - 20810229\n\u2022 Mai Đình Thái Sơn - 20810229\n\u2022 Mai Đình Thái Sơn - 20810229</string>
+
+    <string name="bottom_sheet_word_label">Word: %1$s</string>
+    <string name="bottom_sheet_meaning_label">Meaning: %1$s</string>
+
+    <!--About-->
+    <string name="about_app_title">Đồ Án TKPM HK2 23/24</string>
+    <string name="about_app_description">Ứng Dụng: English is Easy</string>
 </resources>
