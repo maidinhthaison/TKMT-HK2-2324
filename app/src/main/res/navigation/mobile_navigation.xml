@@ -15,11 +15,6 @@
             app:destination="@id/vocabularyBottomSheetDialogFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_dictionary"
-        android:name="com.mdts.eieapp.presentation.dict.DictionaryFragment"
-        android:label="@string/title_dictionary"
-        tools:layout="@layout/fragment_dictionary" />
 
     <fragment
         android:id="@+id/navigation_about"

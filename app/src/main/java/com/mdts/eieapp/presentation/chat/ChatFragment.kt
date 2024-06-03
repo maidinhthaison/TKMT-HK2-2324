@@ -20,8 +20,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mdts.eieapp.R
 import com.mdts.eieapp.base.BaseFragment
-import com.mdts.eieapp.data.model.ChatRequestDTO
-import com.mdts.eieapp.data.model.MessageRequestItemDTO
+import com.mdts.eieapp.data.dto.chat.ChatRequestDTO
+import com.mdts.eieapp.data.dto.chat.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentChatBinding
 import com.mdts.eieapp.presentation.chat.adapter.ListMessageUIEvent
 import com.mdts.eieapp.presentation.chat.adapter.MessageAdapter

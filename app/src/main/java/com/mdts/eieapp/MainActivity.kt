@@ -2,6 +2,7 @@ package com.mdts.eieapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -37,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_chat, R.id.navigation_dictionary, R.id.navigation_about
+                R.id.navigation_chat, R.id.navigation_about
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

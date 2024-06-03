@@ -17,8 +17,9 @@ class RetrofitManager (
     private val gson: Gson,
     private val connectivityDataSource: ConnectivityDataSource,
     private val baseUrl: String,
-    private val openAiAPIKey: String
+    private val openAiAPIKey: String? = null
 ) {
+
     class NetworkLogger : HttpLoggingInterceptor.Logger {
         override fun log(message: String?) {
             Timber.d(message)

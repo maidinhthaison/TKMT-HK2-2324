@@ -44,4 +44,16 @@ class AppModule {
             openAiAPIKey = AppConfig.backendEnvironment.openAiAPIKey
         )
     }
+
+    @DictionaryApiQualifier
+    @Provides
+    fun provideDictionaryRetrofitManager(
+        gson: Gson, connectivityDataSource: ConnectivityDataSource
+    ): RetrofitManager {
+        return RetrofitManager(
+            gson = gson,
+            connectivityDataSource = connectivityDataSource,
+            baseUrl = AppConfig.backendEnvironment.dictionaryBaseUrl
+        )
+    }
 }
