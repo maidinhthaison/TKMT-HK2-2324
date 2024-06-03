@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.mlkit.common.model.DownloadConditions
@@ -16,8 +18,13 @@ import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
 import com.mdts.eieapp.R
 import com.mdts.eieapp.base.BaseBottomSheetDialogFragment
+import com.mdts.eieapp.base.collectWhenOwnerStarted
+import com.mdts.eieapp.data.dto.chat.ChatRequestDTO
+import com.mdts.eieapp.data.dto.chat.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentVocabularyBottomsheetBinding
+import com.mdts.eieapp.domain.TaskResult
 import com.mdts.eieapp.presentation.chat.ChatFragment.Companion.MESSAGE_KEY_BUNDLE
+import com.mdts.eieapp.presentation.chat.ChatViewModel
 import com.mdts.eieapp.presentation.chat.Message
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -30,6 +37,8 @@ class VocabularyBottomSheetDialogFragment :
 
     // Text to Speech
     private lateinit var textToSpeech: TextToSpeech
+
+    override val viewModel by viewModels<DictionaryViewModel>()
 
     override fun initBindingObject(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -80,12 +89,71 @@ class VocabularyBottomSheetDialogFragment :
 
     }
     private fun bindData(message: Message){
+        binding.tvWordLookUp.showSoftInputOnFocus = false
         binding.tvWord.text = String.format(getString(R.string.bottom_sheet_word_label), message.content)
         binding.ivVolume.setOnClickListener {
             textToSpeech.speak(message.content, TextToSpeech.QUEUE_FLUSH, null, null)
         }
         translateText(message.content)
 
+        binding.btnSearch.setOnClickListener {
+            with(viewModel) {
+                lookUp(binding.tvWordLookUp.text.toString().trim())
+            }
+
+        }
+        /*viewModel.uiLookUpModel.collectWhenCreated { it ->
+            binding.loadingProgress.isVisible = it.isLoading
+            if (it.data != null) {
+                binding.loadingProgress.isVisible = false
+                val listResult = it.data
+                listResult.forEach { it ->
+                    val phoneTics = it.phoneticsList
+                    phoneTics?.forEach { it1 ->
+                        Timber.d(">>> :${it1.text} - ${it1.audio}")
+                    }
+                    val meanings = it.meaningsList
+                    meanings?.forEach { it2 ->
+                        Timber.d(">>> :${it2.partOfSpeech}")
+                        val definitions = it2.definitions
+                        definitions?.forEach { it3 -> Timber.d("Definition: ${it3.definition}") }
+                    }
+                }
+            }else{
+                binding.loadingProgress.isVisible = false
+                Timber.d(">>>ERROR LOOKUP NULL")
+            }
+        }*/
+        viewModel.uiLookUpModel.collectWhenOwnerStarted(this) {
+            when (it) {
+                TaskResult.Loading -> {
+                    binding.loadingProgress.isVisible = true
+                }
+
+                is TaskResult.Success -> {
+                    binding.loadingProgress.isVisible = false
+                    val listResult = it.data
+                    listResult.forEach { it ->
+                        val phoneTics = it.phoneticsList
+                        phoneTics?.forEach { it1 ->
+                            Timber.d(">>> :${it1.text} - ${it1.audio}")
+                        }
+                        val meanings = it.meaningsList
+                        meanings?.forEach { it2 ->
+                            Timber.d(">>> :${it2.partOfSpeech}")
+                            val definitions = it2.definitions
+                            definitions?.forEach { it3 -> Timber.d("Definition: ${it3.definition}") }
+                        }
+                    }
+                }
+
+                is TaskResult.Failure -> {
+                    binding.loadingProgress.isVisible = false
+                }
+
+                else -> {}
+            }
+        }
     }
     private fun translateText(text: String) {
         val options: TranslatorOptions = TranslatorOptions.Builder()

@@ -2,6 +2,7 @@ package com.mdts.eieapp
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController

@@ -33,85 +33,84 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <RelativeLayout
-                    android:layout_marginBottom="@dimen/_24sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_centerVertical="true"
                         android:id="@+id/ivFlagUs"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         app:srcCompat="@drawable/ic_us_flag"/>
                     <com.google.android.material.textview.MaterialTextView
+                        android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ivFlagUs"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_24sdp"
                         android:id="@+id/tvWord"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textSize="@dimen/_14sdp"
+                        tools:text="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
                         android:text="@string/bottom_sheet_word_label" />
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:visibility="gone"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_below="@+id/tvWord"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/ivVolume"
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="@dimen/_24sdp"
                         app:srcCompat="@drawable/ic_volume_up_24"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivFlagVn"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_below="@+id/tvWord"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
                         app:srcCompat="@drawable/ic_vn_flag"/>
                     <com.google.android.material.textview.MaterialTextView
-                        android:layout_below="@+id/tvWord"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ivFlagVn"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_24sdp"
                         android:id="@+id/tvMeaning"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textSize="@dimen/_14sdp"
-                        android:text="@string/bottom_sheet_meaning_label" />
-                    <com.google.android.material.divider.MaterialDivider
-                        android:id="@+id/div0"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_below="@+id/tvMeaning"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"/>
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/div0"
-                        android:orientation="horizontal">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:layout_weight="0.7"
-                            android:id="@+id/messageEditText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_outline_32_gray"
-                            android:hint="Vocabulary"
-                            android:inputType="textMultiLine"
-                            android:padding="@dimen/_14sdp" />
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:id="@+id/micButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_rounded_64_blue"
-                            android:padding="@dimen/_10sdp"
-                            app:srcCompat="@drawable/ic_search_white_36" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
+                        android:textSize="@dimen/_14sdp"
+                        tools:text="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+                        android:text="@string/bottom_sheet_meaning_label" />
                 </RelativeLayout>
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/div0"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_below="@+id/tvMeaning"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/div0"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_weight="0.7"
+                        android:id="@+id/tvWordLookUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_outline_32_gray"
+                        android:hint="Vocabulary"
+                        android:padding="@dimen/_14sdp" />
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:id="@+id/btnSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rounded_64_blue"
+                        android:padding="@dimen/_10sdp"
+                        app:srcCompat="@drawable/ic_search_white_36" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -3,10 +3,10 @@ package com.mdts.eieapp.di.chat
 import com.mdts.eieapp.data.api.ChatApi
 import com.mdts.eieapp.data.repository.ChatRepositoryImpl
 import com.mdts.eieapp.data.retrofit.RetrofitManager
-import com.mdts.eieapp.data.usecase.SendChatToOpenAIUseCaseImpl
+import com.mdts.eieapp.data.usecase.chat.SendChatToOpenAIUseCaseImpl
 import com.mdts.eieapp.di.DefaultApiQualifier
 import com.mdts.eieapp.domain.repository.ChatRepository
-import com.mdts.eieapp.domain.usecase.SendChatToOpenAIUseCase
+import com.mdts.eieapp.domain.usecase.chat.SendChatToOpenAIUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 class ChatModule {
     @Singleton
     @Provides
-    fun provideMovieRepository(
+    fun provideChatRepository(
         chatApi: ChatApi
     ): ChatRepository {
         return ChatRepositoryImpl(

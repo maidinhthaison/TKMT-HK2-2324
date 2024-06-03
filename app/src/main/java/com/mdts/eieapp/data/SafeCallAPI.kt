@@ -1,5 +1,6 @@
 package com.mdts.eieapp.data
 
+import com.mdts.eieapp.data.dto.APIResponseErrorDto
 import com.mdts.eieapp.domain.AppError
 import com.mdts.eieapp.domain.TaskResult
 import retrofit2.HttpException

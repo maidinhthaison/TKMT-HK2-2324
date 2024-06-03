@@ -2,16 +2,11 @@ package com.mdts.eieapp.presentation.chat
 
 import androidx.lifecycle.viewModelScope
 import com.mdts.eieapp.base.BaseViewModel
-import com.mdts.eieapp.data.model.ChatRequestDTO
-import com.mdts.eieapp.domain.TaskResult
-import com.mdts.eieapp.domain.model.ChatModel
-import com.mdts.eieapp.domain.usecase.SendChatToOpenAIUseCase
+import com.mdts.eieapp.data.dto.chat.ChatRequestDTO
+import com.mdts.eieapp.domain.usecase.chat.SendChatToOpenAIUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
