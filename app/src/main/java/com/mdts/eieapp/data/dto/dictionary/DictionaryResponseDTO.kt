@@ -15,7 +15,7 @@ data class DictionaryResponseDTO(
     @SerializedName("phonetics") val phoneticsList: List<PhoneticsResponseDTO>?,
     @SerializedName("meanings") val meaningsList: List<MeaningResponseDTO>?,
     @SerializedName("license") val license: PhoneticsLicenseResponseDTO?,
-    @SerializedName("sourceUrls") val sourceUrls: String?
+    @SerializedName("sourceUrls") val sourceUrls: List<String>?
 
 ): Serializable {
     fun toDictionaryModel(): DictionaryModel {
@@ -64,15 +64,15 @@ data class PhoneticsLicenseResponseDTO(
 data class MeaningResponseDTO(
     @SerializedName("partOfSpeech") val partOfSpeech: String?,
     @SerializedName("definitions") val definitions: List<MeaningDefinitionResponseDTO>?,
-    @SerializedName("synonyms") val synonyms: String?,
-    @SerializedName("antonyms") val antonyms: String?
+    @SerializedName("synonyms") val synonyms: List<String>?,
+    @SerializedName("antonyms") val antonyms: List<String>?
 ) : Serializable{
     fun toMeaningModel(): MeaningModel {
         return MeaningModel(
             partOfSpeech = partOfSpeech,
             definitions = definitions?.map { it.toMeaningDefinitionModel() },
             synonyms = synonyms,
-            antonyms = antonyms
+            antonyms = antonyms,
         )
 
     }

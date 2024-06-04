@@ -9,7 +9,7 @@ data class DictionaryModel(
     val phoneticsList: List<PhoneticsModel>? = null,
     val meaningsList: List<MeaningModel>? = null,
     val license: PhoneticsLicenseModel? = null,
-    val sourceUrls: String? = null
+    val sourceUrls: List<String>? = null
 
 ) : Serializable
 
@@ -24,8 +24,8 @@ data class PhoneticsModel(
 data class MeaningModel(
     val partOfSpeech: String? = null,
     val definitions: List<MeaningDefinitionModel>? = null,
-    val synonyms: String? = null,
-    val antonyms: String? = null
+    val synonyms: List<String>? = null,
+    val antonyms: List<String>? = null
 
 ) : Serializable
 
