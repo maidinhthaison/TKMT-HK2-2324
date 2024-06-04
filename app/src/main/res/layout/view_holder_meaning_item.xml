@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_4sdp"
+    app:cardElevation="@dimen/_4sdp"
+    app:strokeColor="@android:color/transparent"
+    app:strokeWidth="0dp"
+    tools:ignore="SpUsage">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:padding="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.textview.MaterialTextView
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:id="@+id/tvPartOfSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            tools:text="Text" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/tvPartOfSpeech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/tvDefinition"
+            tools:text="Definition"
+            android:textSize="@dimen/_12sdp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSynonyms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDefinition"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            tools:text="Synonyms" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/tvSynonyms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/tvAntonyms"
+            tools:text="Antonyms"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

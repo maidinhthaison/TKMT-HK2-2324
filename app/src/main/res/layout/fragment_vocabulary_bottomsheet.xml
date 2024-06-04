@@ -90,13 +90,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"/>
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/div0"
                     android:orientation="horizontal">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_weight="0.7"
-                        android:id="@+id/tvWordLookUp"
+                        android:id="@+id/edtWordLookUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_outline_32_gray"
@@ -113,19 +115,54 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPhonetics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottom_sheet_phonetics_label"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_margin="@dimen/_12sdp"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvVocabulary"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:id="@+id/rvPhonetics"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="true"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:itemCount="9"
-                app:spanCount="3"
-                tools:listitem="@layout/view_holder_vocabulary_item" />
+                tools:itemCount="2"
+                tools:listitem="@layout/view_holder_phonetic_item" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMeanings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bottom_sheet_meanings_label"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_margin="@dimen/_12sdp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:id="@+id/rvMeaning"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="true"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:itemCount="2"
+                tools:listitem="@layout/view_holder_phonetic_item" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>
