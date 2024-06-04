@@ -13,4 +13,13 @@
     <!--About-->
     <string name="about_app_title">Đồ Án TKPM HK2 23/24</string>
     <string name="about_app_description">Ứng Dụng: English is Easy</string>
+
+    <!--Vocabulary-->
+    <string name="bottom_sheet_source_url_label"><![CDATA[<u>%1$s</u>]]></string>
+    <string name="bottom_sheet_source_license_label"><![CDATA[<b>License: </b>%1$s]]></string>
+    <string name="bottom_sheet_synonyms_label"><![CDATA[<b>Synonyms:</b>%1$s]]></string>
+    <string name="bottom_sheet_antonyms_label"><![CDATA[<b>Antonyms:</b>%1$s]]></string>
+
+    <string name="bottom_sheet_phonetics_label">Phonetics</string>
+    <string name="bottom_sheet_meanings_label">Meanings</string>
 </resources>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.mlkit.common.model.DownloadConditions
@@ -23,6 +24,8 @@ import com.mdts.eieapp.data.dto.chat.ChatRequestDTO
 import com.mdts.eieapp.data.dto.chat.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentVocabularyBottomsheetBinding
 import com.mdts.eieapp.domain.TaskResult
+import com.mdts.eieapp.presentation.bottomsheet.adapter.MeaningsAdapter
+import com.mdts.eieapp.presentation.bottomsheet.adapter.PhoneticsAdapter
 import com.mdts.eieapp.presentation.chat.ChatFragment.Companion.MESSAGE_KEY_BUNDLE
 import com.mdts.eieapp.presentation.chat.ChatViewModel
 import com.mdts.eieapp.presentation.chat.Message
@@ -39,6 +42,9 @@ class VocabularyBottomSheetDialogFragment :
     private lateinit var textToSpeech: TextToSpeech
 
     override val viewModel by viewModels<DictionaryViewModel>()
+
+    private lateinit var phoneticsAdapter: PhoneticsAdapter
+    private lateinit var meaningsAdapter: MeaningsAdapter
 
     override fun initBindingObject(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -87,9 +93,26 @@ class VocabularyBottomSheetDialogFragment :
             }
         }
 
+        /**
+         * setup recycle view
+         */
+
+        phoneticsAdapter =  PhoneticsAdapter(context = requireContext())
+        binding.rvPhonetics.apply {
+
+            adapter = phoneticsAdapter
+            itemAnimator = DefaultItemAnimator()
+        }
+
+        meaningsAdapter =  MeaningsAdapter(context = requireContext())
+        binding.rvMeaning.apply {
+
+            adapter = meaningsAdapter
+            itemAnimator = DefaultItemAnimator()
+        }
+
     }
     private fun bindData(message: Message){
-        binding.tvWordLookUp.showSoftInputOnFocus = false
         binding.tvWord.text = String.format(getString(R.string.bottom_sheet_word_label), message.content)
         binding.ivVolume.setOnClickListener {
             textToSpeech.speak(message.content, TextToSpeech.QUEUE_FLUSH, null, null)
@@ -98,7 +121,7 @@ class VocabularyBottomSheetDialogFragment :
 
         binding.btnSearch.setOnClickListener {
             with(viewModel) {
-                lookUp(binding.tvWordLookUp.text.toString().trim())
+                lookUp(binding.edtWordLookUp.text.toString().trim())
             }
 
         }
@@ -127,34 +150,37 @@ class VocabularyBottomSheetDialogFragment :
         viewModel.uiLookUpModel.collectWhenOwnerStarted(this) {
             when (it) {
                 TaskResult.Loading -> {
+                    binding.tvPhonetics.isVisible = false
+                    binding.tvMeanings.isVisible = false
                     binding.loadingProgress.isVisible = true
                 }
 
                 is TaskResult.Success -> {
                     binding.loadingProgress.isVisible = false
+                    binding.tvPhonetics.isVisible = true
+                    binding.tvMeanings.isVisible = true
                     val listResult = it.data
                     listResult.forEach { it ->
                         val phoneTics = it.phoneticsList
-                        phoneTics?.forEach { it1 ->
-                            Timber.d(">>> :${it1.text} - ${it1.audio}")
-                        }
                         val meanings = it.meaningsList
-                        meanings?.forEach { it2 ->
-                            Timber.d(">>> :${it2.partOfSpeech}")
-                            val definitions = it2.definitions
-                            definitions?.forEach { it3 -> Timber.d("Definition: ${it3.definition}") }
-                        }
+                        //binding recycler view
+                        phoneticsAdapter.submitList(phoneTics)
+                        meaningsAdapter.submitList(meanings)
+
                     }
                 }
 
                 is TaskResult.Failure -> {
                     binding.loadingProgress.isVisible = false
+                    binding.tvPhonetics.isVisible = false
+                    binding.tvMeanings.isVisible = false
                     Timber.d(">>>>${it.error()?.getErrorMessage()}")
                 }
 
                 else -> {}
             }
         }
+
     }
     private fun translateText(text: String) {
         val options: TranslatorOptions = TranslatorOptions.Builder()
