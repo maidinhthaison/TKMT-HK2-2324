@@ -149,6 +149,7 @@ class VocabularyBottomSheetDialogFragment :
 
                 is TaskResult.Failure -> {
                     binding.loadingProgress.isVisible = false
+                    Timber.d(">>>>${it.error()?.getErrorMessage()}")
                 }
 
                 else -> {}
