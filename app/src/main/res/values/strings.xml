@@ -22,4 +22,9 @@
 
     <string name="bottom_sheet_phonetics_label">Phonetics</string>
     <string name="bottom_sheet_meanings_label">Meanings</string>
+
+    <!--Error-->
+    <string name="t2p_language_not_support_error">Text to speech language not supported</string>
+    <string name="t2p_language_initialization_error">Text to speech initialization failed</string>
+    <string name="look_up_word_error">Can not find phonetics, meaning of %1$s</string>
 </resources>

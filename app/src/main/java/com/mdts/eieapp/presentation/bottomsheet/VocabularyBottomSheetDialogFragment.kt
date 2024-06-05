@@ -6,7 +6,6 @@ import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -20,15 +19,13 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import com.mdts.eieapp.R
 import com.mdts.eieapp.base.BaseBottomSheetDialogFragment
 import com.mdts.eieapp.base.collectWhenOwnerStarted
-import com.mdts.eieapp.data.dto.chat.ChatRequestDTO
-import com.mdts.eieapp.data.dto.chat.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentVocabularyBottomsheetBinding
 import com.mdts.eieapp.domain.TaskResult
 import com.mdts.eieapp.presentation.bottomsheet.adapter.MeaningsAdapter
 import com.mdts.eieapp.presentation.bottomsheet.adapter.PhoneticsAdapter
 import com.mdts.eieapp.presentation.chat.ChatFragment.Companion.MESSAGE_KEY_BUNDLE
-import com.mdts.eieapp.presentation.chat.ChatViewModel
 import com.mdts.eieapp.presentation.chat.Message
+import com.mdts.eieapp.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.Locale
@@ -86,10 +83,10 @@ class VocabularyBottomSheetDialogFragment :
             if (status == TextToSpeech.SUCCESS) {
                 val result = textToSpeech.setLanguage(Locale.ENGLISH)
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(requireContext(), "Text to speech language not supported", Toast.LENGTH_LONG).show()
+                    ToastUtils.showToast(requireContext(), R.string.t2p_language_not_support_error, 0)
                 }
             } else {
-                Toast.makeText(requireContext(), "Text to speech initialization failed", Toast.LENGTH_LONG).show()
+                ToastUtils.showToast(requireContext(), R.string.t2p_language_initialization_error, 0)
             }
         }
 
@@ -125,28 +122,7 @@ class VocabularyBottomSheetDialogFragment :
             }
 
         }
-        /*viewModel.uiLookUpModel.collectWhenCreated { it ->
-            binding.loadingProgress.isVisible = it.isLoading
-            if (it.data != null) {
-                binding.loadingProgress.isVisible = false
-                val listResult = it.data
-                listResult.forEach { it ->
-                    val phoneTics = it.phoneticsList
-                    phoneTics?.forEach { it1 ->
-                        Timber.d(">>> :${it1.text} - ${it1.audio}")
-                    }
-                    val meanings = it.meaningsList
-                    meanings?.forEach { it2 ->
-                        Timber.d(">>> :${it2.partOfSpeech}")
-                        val definitions = it2.definitions
-                        definitions?.forEach { it3 -> Timber.d("Definition: ${it3.definition}") }
-                    }
-                }
-            }else{
-                binding.loadingProgress.isVisible = false
-                Timber.d(">>>ERROR LOOKUP NULL")
-            }
-        }*/
+
         viewModel.uiLookUpModel.collectWhenOwnerStarted(this) {
             when (it) {
                 TaskResult.Loading -> {
@@ -174,7 +150,8 @@ class VocabularyBottomSheetDialogFragment :
                     binding.loadingProgress.isVisible = false
                     binding.tvPhonetics.isVisible = false
                     binding.tvMeanings.isVisible = false
-                    Timber.d(">>>>${it.error()?.getErrorMessage()}")
+                    ToastUtils.showToast(requireContext(), it.error()?.getErrorMessage() ?:
+                            String.format(getString(R.string.look_up_word_error), binding.edtWordLookUp.text.toString().trim()),0)
                 }
 
                 else -> {}

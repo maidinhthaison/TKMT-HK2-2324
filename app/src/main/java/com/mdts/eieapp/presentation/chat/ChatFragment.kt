@@ -11,7 +11,6 @@ import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -25,6 +24,7 @@ import com.mdts.eieapp.data.dto.chat.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentChatBinding
 import com.mdts.eieapp.presentation.chat.adapter.ListMessageUIEvent
 import com.mdts.eieapp.presentation.chat.adapter.MessageAdapter
+import com.mdts.eieapp.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.Locale
@@ -128,10 +128,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             if (status == TextToSpeech.SUCCESS) {
                 val result = textToSpeech.setLanguage(Locale.US)
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Toast.makeText(requireContext(), "Text to speech language not supported", Toast.LENGTH_LONG).show()
+                    ToastUtils.showToast(requireContext(), R.string.t2p_language_not_support_error, 0)
                 }
             } else {
-                Toast.makeText(requireContext(), "Text to speech initialization failed", Toast.LENGTH_LONG).show()
+                ToastUtils.showToast(requireContext(), R.string.t2p_language_initialization_error, 0)
             }
         }
         // chat recycler view
@@ -205,76 +205,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             }
         }
 
-
-        /*val headers = Headers.Builder()
-            .add("Authorization", "Bearer ${binding.OpenAIAPIKeyEditText.text}")
-            .add("Content-Type", "application/json")
-            .build()
-
-        // messages without "..." and with the system message as first
-        val messagesOpenAI = ArrayList(messages)
-        val systemContent = "Keep responses short"
-        if (systemContent.isNotEmpty()) {
-            messagesOpenAI.add(0, Message("system", systemContent))
-        }
-        messagesOpenAI.removeLast()
-
-        val requestData = mapOf(
-            "model" to "gpt-3.5-turbo",
-            "messages" to messagesOpenAI
-        )
-
-        val jsonMediaType = "application/json; charset=utf-8".toMediaType()
-        val requestBody = Gson().toJson(requestData).toRequestBody(jsonMediaType)
-
-        val request = Request.Builder()
-            .url("https://api.openai.com/v1/chat/completions")
-            .headers(headers)
-            .post(requestBody)
-            .build()
-
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                // if the request fails, show the error message to the user
-                runOnUiThread {
-                    removeLastMessageFromChatRecyclerView()
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body?.string()
-                    val responseJson = Gson().fromJson(responseBody, ResponseJson::class.java)
-
-                    val assistantContent = responseJson.choices[0].message.content
-                    tokenUsage += responseJson.usage.total_tokens
-
-                    runOnUiThread {
-                        removeLastMessageFromChatRecyclerView()
-                        textToSpeech.stop()
-                        addMessageToChatRecyclerView(Message("assistant", assistantContent))
-                        updateUsageTextView()
-                    }
-
-                    // update tokenUsage
-                    val userRef = database.getReference("users/${auth.currentUser?.uid}/token_usage")
-                    userRef.get()
-                        .addOnSuccessListener {
-                            userRef.setValue(tokenUsage)
-                        }
-                        .addOnFailureListener {
-                            Log.e("Error updating tokenUsage", it.message!!)
-                        }
-                } else {
-                    // if the response fails, show the error message to the user
-                    runOnUiThread {
-                        removeLastMessageFromChatRecyclerView()
-                        Toast.makeText(this@MainActivity, response.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
-        })*/
     }
     private fun addMessageToChatRecyclerView(message: Message) {
         messages.add(message)
