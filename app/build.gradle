@@ -34,8 +34,8 @@ android {
                 //storeFile file('../release_keystore.jks')
             }
             staging{
-                storePassword 'egs!23456'
-                keyPassword 'egs!23456'
+                storePassword 'eis!23456'
+                keyPassword 'eis!23456'
                 keyAlias 'stag_keystore'
                 //storeFile file('../debug_keystore.jks')
             }

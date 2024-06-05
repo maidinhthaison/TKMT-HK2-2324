@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.mdts.eieapp.R
+import com.mdts.eieapp.config.Role
 import com.mdts.eieapp.presentation.chat.Message
 
 internal class MessageAdapter (private val messages: List<Message>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
@@ -26,8 +27,8 @@ internal class MessageAdapter (private val messages: List<Message>) : RecyclerVi
 
     override fun getItemViewType(position: Int): Int {
         return when (messages[position].role) {
-            ROLE.USER.role -> R.layout.user_message
-            ROLE.ASSISTANT.role -> R.layout.assistant_message
+            Role.USER.role -> R.layout.user_message
+            Role.ASSISTANT.role -> R.layout.assistant_message
             else -> throw IllegalArgumentException("Invalid role")
         }
     }
@@ -46,7 +47,3 @@ sealed class ListMessageUIEvent() {
 }
 
 
-enum class ROLE(val role: String){
-    USER("user"),
-    ASSISTANT("assistant")
-}

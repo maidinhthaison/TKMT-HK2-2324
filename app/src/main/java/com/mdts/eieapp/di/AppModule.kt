@@ -40,7 +40,7 @@ class AppModule {
         return RetrofitManager(
             gson = gson,
             connectivityDataSource = connectivityDataSource,
-            baseUrl = AppConfig.backendEnvironment.baseUrl,
+            openAiBaseUrl = AppConfig.backendEnvironment.openAiBaseUrl,
             openAiAPIKey = AppConfig.backendEnvironment.openAiAPIKey
         )
     }
@@ -53,7 +53,7 @@ class AppModule {
         return RetrofitManager(
             gson = gson,
             connectivityDataSource = connectivityDataSource,
-            baseUrl = AppConfig.backendEnvironment.dictionaryBaseUrl
+            openAiBaseUrl = AppConfig.backendEnvironment.dictionaryBaseUrl
         )
     }
 }

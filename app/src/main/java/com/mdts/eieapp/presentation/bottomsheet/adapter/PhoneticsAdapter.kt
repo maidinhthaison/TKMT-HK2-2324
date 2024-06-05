@@ -44,7 +44,7 @@ internal class PhoneticsAdapter (
 
     internal inner class PhoneticsItemViewHolder(private val binding: ViewHolderPhoneticItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private var isEnabled: Boolean= false
+        private var isEnabled: Boolean = true
         fun bind(item: PhoneticsModel, position: Int) {
             binding.tvText.text = item.text
             binding.tvSourceUrl.text = HtmlCompat.fromHtml(String.format(context.getString(R.string.bottom_sheet_source_url_label), item.sourceUrl?: ""),

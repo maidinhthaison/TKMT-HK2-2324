@@ -19,11 +19,11 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import com.mdts.eieapp.R
 import com.mdts.eieapp.base.BaseBottomSheetDialogFragment
 import com.mdts.eieapp.base.collectWhenOwnerStarted
+import com.mdts.eieapp.config.MESSAGE_KEY_BUNDLE
 import com.mdts.eieapp.databinding.FragmentVocabularyBottomsheetBinding
 import com.mdts.eieapp.domain.TaskResult
 import com.mdts.eieapp.presentation.bottomsheet.adapter.MeaningsAdapter
 import com.mdts.eieapp.presentation.bottomsheet.adapter.PhoneticsAdapter
-import com.mdts.eieapp.presentation.chat.ChatFragment.Companion.MESSAGE_KEY_BUNDLE
 import com.mdts.eieapp.presentation.chat.Message
 import com.mdts.eieapp.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -165,7 +165,7 @@ class VocabularyBottomSheetDialogFragment :
             .setTargetLanguage(TranslateLanguage.VIETNAMESE)
             .build()
 
-        val englishVietnameseTranslator: Translator = Translation.getClient(options!!)
+        val englishVietnameseTranslator: Translator = Translation.getClient(options)
         val conditions = DownloadConditions.Builder()
             .requireWifi()
             .build()
