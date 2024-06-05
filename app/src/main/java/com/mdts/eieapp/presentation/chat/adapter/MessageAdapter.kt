@@ -26,8 +26,8 @@ internal class MessageAdapter (private val messages: List<Message>) : RecyclerVi
 
     override fun getItemViewType(position: Int): Int {
         return when (messages[position].role) {
-            "user" -> R.layout.user_message
-            "assistant" -> R.layout.assistant_message
+            ROLE.USER.role -> R.layout.user_message
+            ROLE.ASSISTANT.role -> R.layout.assistant_message
             else -> throw IllegalArgumentException("Invalid role")
         }
     }
@@ -43,4 +43,10 @@ internal class MessageAdapter (private val messages: List<Message>) : RecyclerVi
 }
 sealed class ListMessageUIEvent() {
     data class OnItemClicked(val message: Message) : ListMessageUIEvent()
+}
+
+
+enum class ROLE(val role: String){
+    USER("user"),
+    ASSISTANT("assistant")
 }

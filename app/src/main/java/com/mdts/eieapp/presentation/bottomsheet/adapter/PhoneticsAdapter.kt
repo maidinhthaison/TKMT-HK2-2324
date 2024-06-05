@@ -5,6 +5,7 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -43,7 +44,7 @@ internal class PhoneticsAdapter (
 
     internal inner class PhoneticsItemViewHolder(private val binding: ViewHolderPhoneticItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private var mediaPlayer: MediaPlayer = MediaPlayer()
+        private var isEnabled: Boolean= false
         fun bind(item: PhoneticsModel, position: Int) {
             binding.tvText.text = item.text
             binding.tvSourceUrl.text = HtmlCompat.fromHtml(String.format(context.getString(R.string.bottom_sheet_source_url_label), item.sourceUrl?: ""),
@@ -54,7 +55,7 @@ internal class PhoneticsAdapter (
 
             //speak
             binding.imvSpeak.setOnClickListener {
-                if(!item.audio.isNullOrEmpty()){
+                if(!item.audio.isNullOrEmpty() && isEnabled){
                     playFromUrl(item.audio){
                         prepareAsync()
                     }
@@ -62,7 +63,7 @@ internal class PhoneticsAdapter (
                 }
             }
         }
-//https://stackoverflow.com/questions/5974392/how-to-play-audio-file-from-url-in-android
+
         private fun playFromUrl(
             url: String,
             onStart: MediaPlayer.() -> Unit
@@ -77,15 +78,15 @@ internal class PhoneticsAdapter (
                 setDataSource(url)
 
                 setOnPreparedListener {
-                    //isEnabled = false
+                    isEnabled = false
                     start()
-                    //setImageDrawable(context.getDrawableResource(R.drawable.ic_baseline_stop_24))
+                    binding.imvSpeak.setColorFilter(ContextCompat.getColor(context, R.color.blue), android.graphics.PorterDuff.Mode.MULTIPLY)
                 }
 
                 setOnCompletionListener {
-                    //setImageDrawable(context.getDrawableResource(R.drawable.ic_baseline_volume_up_24))
+                    binding.imvSpeak.setColorFilter(ContextCompat.getColor(context, R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY)
                     release()
-                    //isEnabled = true
+                    isEnabled = true
                 }
             }.onStart()
         }
