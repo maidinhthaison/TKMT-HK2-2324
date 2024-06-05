@@ -174,16 +174,13 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         addMessageToChatRecyclerView(Message("assistant", "..."))
         // messages without "..." and with the system message as first
         val messagesOpenAI : ArrayList<Message> = ArrayList()
-        val systemContent = "Keep responses short"
+        val systemContent = SYSTEM_INSTRUCTION
         if (systemContent.isNotEmpty()) {
             messagesOpenAI.add(0, Message("system", systemContent))
 
         }
         messagesOpenAI.removeLast()
-       /* val requestData = mapOf(
-            "model" to "gpt-3.5-turbo",
-            "messages" to messagesOpenAI
-        )*/
+
         with(viewModel) {
             val chatRequestDTO = ChatRequestDTO(model = "gpt-3.5-turbo",
                 messages = messages.map { item-> MessageRequestItemDTO(item.role, item.content) }
@@ -197,13 +194,13 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
                 val choice = it.data.choices?.get(0)
                 if (choice != null) {
                     Timber.d(">>>SUCCESS : ${choice.message?.role} - ${choice.message?.content}")
-                    //removeLastMessageFromChatRecyclerView()
+                    removeLastMessageFromChatRecyclerView()
                     textToSpeech.stop()
                     addMessageToChatRecyclerView(Message("assistant", choice.message?.content.toString()))
                 }
             }else{
                 binding.loadingProgress.isVisible = false
-                //removeLastMessageFromChatRecyclerView()
+                removeLastMessageFromChatRecyclerView()
                 Timber.d(">>>ERROR :")
             }
         }
@@ -293,8 +290,8 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             Timber.d(">>>MUTE message")
         }*/
         //Mock
-        if (message.role == "assistant"){
-            textToSpeech.speak("How are you", TextToSpeech.QUEUE_FLUSH, null, null)
+        if (message.role == "assistant" && message.content != "..."){
+            textToSpeech.speak(message.content, TextToSpeech.QUEUE_FLUSH, null, null)
         }
 
     }
@@ -337,5 +334,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
     companion object{
         private const val RECORD_AUDIO_PERMISSION_CODE = 1
         const val MESSAGE_KEY_BUNDLE = "message_key_bundle"
+        private const val SYSTEM_INSTRUCTION = "Keep responses short"
     }
 }

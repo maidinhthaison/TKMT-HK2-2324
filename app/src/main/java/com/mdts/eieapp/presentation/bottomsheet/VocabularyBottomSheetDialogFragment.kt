@@ -57,7 +57,7 @@ class VocabularyBottomSheetDialogFragment :
     }
 
     override fun weightOfHeight(): Float? {
-        return 0.7f
+        return 0.8f
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

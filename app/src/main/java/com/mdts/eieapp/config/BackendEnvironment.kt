@@ -28,7 +28,7 @@ enum class BackendEnvironment (
 
 
 private const val baseUrl : String = "https://api.openai.com"
-private const val OPENAI_API_KEY: String  = ""
+private const val OPENAI_API_KEY: String  = "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"
 const val API_VERSION = "v1"
 ////////////
 private const val dictionaryBaseUrl : String = "https://api.dictionaryapi.dev"
