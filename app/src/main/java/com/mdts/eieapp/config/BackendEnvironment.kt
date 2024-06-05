@@ -1,25 +1,25 @@
 package com.mdts.eieapp.config
 
 enum class BackendEnvironment (
-    val baseUrl: String,
+    val openAiBaseUrl: String,
     val openAiAPIKey: String,
     val dictionaryBaseUrl: String
 ) {
 
     Dev(
-        baseUrl = baseUrl,
+        openAiBaseUrl = openAiBaseUrl,
         openAiAPIKey = OPENAI_API_KEY,
         dictionaryBaseUrl = dictionaryBaseUrl
     ),
 
     Staging(
-        baseUrl = baseUrl,
+        openAiBaseUrl = openAiBaseUrl,
         openAiAPIKey = OPENAI_API_KEY,
         dictionaryBaseUrl = dictionaryBaseUrl
     ),
 
     Prod(
-        baseUrl = baseUrl,
+        openAiBaseUrl = openAiBaseUrl,
         openAiAPIKey = OPENAI_API_KEY,
         dictionaryBaseUrl = dictionaryBaseUrl
     )
@@ -27,7 +27,7 @@ enum class BackendEnvironment (
 }
 
 
-private const val baseUrl : String = "https://api.openai.com"
+private const val openAiBaseUrl : String = "https://api.openai.com"
 private const val OPENAI_API_KEY: String  = ""
 const val API_VERSION = "v1"
 ////////////

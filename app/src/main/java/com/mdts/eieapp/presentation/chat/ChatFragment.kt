@@ -19,6 +19,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mdts.eieapp.R
 import com.mdts.eieapp.base.BaseFragment
+import com.mdts.eieapp.config.CHATGPT_MODEL
+import com.mdts.eieapp.config.MESSAGE_KEY_BUNDLE
+import com.mdts.eieapp.config.RECORD_AUDIO_PERMISSION_CODE
+import com.mdts.eieapp.config.Role
+import com.mdts.eieapp.config.SYSTEM_INSTRUCTION
 import com.mdts.eieapp.data.dto.chat.ChatRequestDTO
 import com.mdts.eieapp.data.dto.chat.MessageRequestItemDTO
 import com.mdts.eieapp.databinding.FragmentChatBinding
@@ -182,7 +187,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         messagesOpenAI.removeLast()
 
         with(viewModel) {
-            val chatRequestDTO = ChatRequestDTO(model = "gpt-3.5-turbo",
+            val chatRequestDTO = ChatRequestDTO(model = CHATGPT_MODEL,
                 messages = messages.map { item-> MessageRequestItemDTO(item.role, item.content) }
             )
             sendChatToOpenAI(chatRequestDTO = chatRequestDTO)
@@ -220,7 +225,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
             Timber.d(">>>MUTE message")
         }*/
         //Mock
-        if (message.role == "assistant" && message.content != "..."){
+        if (message.role == Role.ASSISTANT.role && message.content != "..."){
             textToSpeech.speak(message.content, TextToSpeech.QUEUE_FLUSH, null, null)
         }
 
@@ -261,9 +266,10 @@ class ChatFragment : BaseFragment<FragmentChatBinding>() {
         speechRecognizer.stopListening()
         textToSpeech.stop()
     }
-    companion object{
+   /* companion object{
         private const val RECORD_AUDIO_PERMISSION_CODE = 1
         const val MESSAGE_KEY_BUNDLE = "message_key_bundle"
         private const val SYSTEM_INSTRUCTION = "Keep responses short"
-    }
+        private const val CHATGPT_MODEL = "gpt-3.5-turbo"
+    }*/
 }

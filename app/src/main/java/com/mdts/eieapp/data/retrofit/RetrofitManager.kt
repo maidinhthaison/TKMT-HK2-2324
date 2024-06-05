@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class RetrofitManager (
     private val gson: Gson,
     private val connectivityDataSource: ConnectivityDataSource,
-    private val baseUrl: String,
+    private val openAiBaseUrl: String,
     private val openAiAPIKey: String? = null
 ) {
 
@@ -52,7 +52,7 @@ class RetrofitManager (
     }
 
     private fun createRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl(baseUrl)
+        return Retrofit.Builder().baseUrl(openAiBaseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson)).client(createHttpClient())
             .build()
     }
