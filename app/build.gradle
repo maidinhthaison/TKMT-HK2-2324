@@ -96,13 +96,15 @@ android {
 
 dependencies {
 
-    implementation 'com.google.mlkit:translate:17.0.2'
+
     def multidex_version = "2.0.1"
     def hilt_version = "2.48"
     def navigator_version = "2.7.7"
     def retrofit_version = "2.9.0"
     def glide_version = "4.14.2"
     def viewmodel_version = "2.7.0"
+    def mlKitTranslate_version = "17.0.2"
+
     // core
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -130,10 +132,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
-
     // logging
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
@@ -152,7 +150,7 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.2.0"
 
     //Translate
-    implementation 'com.google.mlkit:translate:16.1.1'
+    implementation "com.google.mlkit:translate:$mlKitTranslate_version"
 }
 kapt {
     correctErrorTypes true

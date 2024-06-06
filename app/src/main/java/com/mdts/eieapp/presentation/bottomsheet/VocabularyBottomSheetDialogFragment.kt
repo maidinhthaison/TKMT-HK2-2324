@@ -176,7 +176,9 @@ class VocabularyBottomSheetDialogFragment :
 
                 }
             }
-            addOnFailureListener { e -> Timber.d("${e.printStackTrace()}")}
+            addOnFailureListener {
+                e -> Timber.d("${e.printStackTrace()}")
+            }
         }
     }
     override fun onDestroy() {
